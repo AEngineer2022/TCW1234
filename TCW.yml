@@ -1,0 +1,23 @@
+pool:
+  vmImage: ubuntu-latest
+steps:
+- inputs:
+    goals: package
+    javaHomeOption: JDKVersion
+    jdkArchitectureOption: x64
+    jdkVersionOption: '1.8'
+    mavenOptions: -Xmx3072m
+    mavenPomFile: pom.xml
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+  task: Maven@3
+- inputs:
+    addToPath: true
+    versionSpec: 3.x
+  task: UsePythonVersion@0
+- displayName: Install Checkov
+  script: pip install checkov
+- displayName: Run Checkov
+  script: checkov --directory .
+trigger:
+- main
