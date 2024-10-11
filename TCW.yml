@@ -10,10 +10,7 @@ steps:
     mavenPomFile: pom.xml
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-  task: Maven@3
-- inputs:
-    addToPath: true
-    versionSpec: 3.x
+
   task: UsePythonVersion@0
 - displayName: Install Checkov
   script: pip install checkov
